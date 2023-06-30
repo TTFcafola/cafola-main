@@ -16,7 +16,7 @@ class ProdutoController extends Controller
     public function index()
     {
         $prod = Produto::all();
-        return view('produto.index', ['prod' => Produto::orderBy('id', 'ASC')->get()]);
+        return view('produto.index', ['produto' => Produto::orderBy('id', 'ASC')->get()]);
     }
 
     /**
@@ -26,8 +26,8 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        $cat = Categoria::all();
-        return view('produto.create', compact('cat'));
+        $categoria = Categoria::all();
+        return view('produto.create', compact('categoria'));
     }
 
     /**
@@ -51,7 +51,7 @@ class ProdutoController extends Controller
         }
         
         if($produto->save()){
-            return redirect()->route('prod.index');
+            return redirect()->route('produto.index');
         }else
             dd("Erro ao salvar");
     }
@@ -74,10 +74,10 @@ class ProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produto $prod)
+    public function edit(Produto $produto)
         {
-            $cat = Categoria::all();
-            return view('produto.edit', ['produto' => $prod], compact('cat'));
+            $categoria = Categoria::all();
+            return view('produto.edit', ['produto' => $produto], compact('categoria'));
         }
 
     /**
@@ -87,22 +87,22 @@ class ProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Produto $prod)
+    public function update(Request $request,Produto $produto)
     {
 
-        $prod->categoria_id = $request->categoria_id;
-        $prod->nome = $request->nome;
-        $prod->preco = $request->preco;
+        $produto->categoria_id = $request->categoria_id;
+        $produto->nome = $request->nome;
+        $produto->preco = $request->preco;
 
         if ($request->hasFile('imagem')) {
             $imagem = $request->imagem;
             $nomeImagem = time() . '_' . $imagem->getClientOriginalName();
             $caminhoImagem = $imagem->storeAs('img', $nomeImagem, 'public');
-            $prod->imagem = $caminhoImagem;
+            $produto->imagem = $caminhoImagem;
         }
 
-        if($prod->save()){
-            return redirect()->route('prod.index');
+        if($produto->save()){
+            return redirect()->route('produto.index');
         }else
             dd("Erro ao atualizar");
     }
@@ -112,10 +112,10 @@ class ProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produto $prod)
+    public function destroy(Produto $produto)
     {
-        if($prod->delete()){
-            return redirect()->route('prod.index')->with('bueras', 'Produto excluído com sucesso!!!');
+        if($produto->delete()){
+            return redirect()->route('produto.index');
 
         }else
             dd("Erro ao excluir");

@@ -70,10 +70,10 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $cat)
+    public function edit(Categoria $categorium)
         {
             
-            return view('categoria.edit', ['categoria' => $cat]);
+            return view('categoria.edit', ['categoria' => $categorium]);
         }
 
     /**
@@ -123,14 +123,14 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        $categoria = Categoria::findOrFail($id);
+        $cate = Categoria::findOrFail($id);
     
-        if ($categoria->produtos()->count() > 0) {
-            return redirect()->route('cat.index')->with('robs', 'Não foi possível excluir a categoria, ela contém produtos registrados!!!');
+        if ($cate->pinto()->count() > 0) {
+            return redirect()->route('categoria.index');
         }
     
-        $categoria->delete();
+        $cate->delete();
     
-        return redirect()->route('cat.index')->with('pijas', 'Categoria excluída com sucesso!!!');
+        return redirect()->route('categoria.index');
     }
 }

@@ -15,7 +15,7 @@ class Categoria extends Model
         'nome', 'imagem',
     ];
 
-    public function produtos()
+    public function pinto()
     {
         return $this->hasMany(Produto::class);
     }

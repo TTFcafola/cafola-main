@@ -22,8 +22,10 @@
             <h1 class="text-center">Adicionar novo produto</h1>
             </div>
             <div class="card-body">
-    <form action="{{route('produto.store')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('produto.update', $produto->id)}}" method="POST" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
+ 
 
             <div class="mb-3">
             <label for="categoria_id">Categoria:</label>
@@ -36,17 +38,17 @@
 
             <div class="mb-3">
             <label for="nome" class="form-label">Nome:</label>
-            <input type="text" id="nome" name="nome" class="form-control">
+            <input type="text" id="nome" name="nome" class="form-control" value="{{$produto->nome}}">
             </div>
 
             <div class="mb-3">
             <label for="imagem" class="form-label">Imagem:</label>
-            <input type="file" id="imagem" name="imagem" class="form-control">
+            <input type="file" id="imagem" name="imagem" class="form-control" value="{{$produto->imagem}}">
             </div>
 
             <div class="mb-3">
             <label for="preco" class="form-label">Preço:</label>
-            <input type="number" id="preco" name="preco" step="0.01" class="form-control">
+            <input type="number" id="preco" name="preco" step="0.01" class="form-control" value="{{$produto->preco}}">
             </div>
 
             <div class="text-center">

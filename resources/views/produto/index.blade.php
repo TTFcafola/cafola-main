@@ -4,7 +4,7 @@
     <h1>Lista de categorias</h1>
 <br><br>
 <div class="my-4">
-    <a href="{{route('categoria.create')}}" class="btn btn-primary">Adicionar</a>
+    <a href="{{route('produto.create')}}" class="btn btn-primary">Adicionar</a>
 </div>
 
   
@@ -13,16 +13,20 @@
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Nome</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Id Categoria</th>
             <th scope="col">Detalhes</th>
             <th scope="col">Editar</th>
             <th scope="col">Apagar</th>    
           </tr>
         </thead>
         <tbody>
-        @foreach ($categoria as $cate)
+        @foreach ($produto as $produto)
           <tr>
-            <td scope="row">{{$cate->id}}</td>
-            <td>{{$cate->nome}}</td>
+            <td scope="row">{{$produto->id}}</td>
+            <td>{{$produto->nome}}</td>
+            <td>{{$produto->preco}}</td>
+            <td>{{$produto->categoria_id}}</td>
             <td>
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -40,11 +44,13 @@
                     <div class="modal-body">
 
                     <div class="card">
-                    <img src="{{ asset('storage/' . $cate->imagem) }}" alt="{{ $cate->nome }}" class="img-fluid">
+                    <img src="{{ asset('storage/' . $produto->imagem) }}" alt="{{ $produto->nome }}" class="img-fluid">
                       <div class="card-body">
                         <ul class="list-group">
-                          <li class="list-group-item">Nome: {{$cate->nome}}</li>
-                          <li class="list-group-item">Id: {{$cate->id}}</li>
+                          <li class="list-group-item">Nome: {{$produto->nome}}</li>
+                          <li class="list-group-item">Preço: {{$produto->preco}}</li>
+                          <li class="list-group-item">Id: {{$produto->id}}</li>
+                          <li class="list-group-item">Id da categoria: {{ $produto->categoria_id }}</li>
                         </ul>
                       </div>
                     </div>                                   
@@ -57,9 +63,9 @@
                 </div>
               </div>
             </td>
-            <td><a href="{{route('categoria.edit', $cate->id)}}" class="btn btn-warning">Editar</a></td>
+            <td><a href="{{route('produto.edit', $produto->id)}}" class="btn btn-warning">Editar</a></td>
             <td>
-              <form action="{{route('categoria.destroy', $cate->id)}}" method="POST">
+              <form action="{{route('produto.destroy', $produto->id)}}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger">Excluir</button>
